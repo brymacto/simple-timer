@@ -1,6 +1,9 @@
 var timer;
 var timerOn = false;
 var time = 0;
+var difference = 0;
+var startTime;
+var lastTime = 0;
 $( document ).ready(function() {
   $( '#start_stop' ).click(function() {
     timerOn = !timerOn;
@@ -14,13 +17,18 @@ $( document ).ready(function() {
   });
 
   function startTimer() {
+    startTime = new Date();
     timer = setInterval(addTime, 1000)
+
   }
   function stopTimer() {
     clearInterval(timer);
+    lastTime = time;
   }
   function addTime() {
-    time += 1000;
+    currentTime = new Date();
+    difference = Math.floor(((currentTime.getTime() - startTime.getTime())/1000));
+    time = lastTime + difference;
     $('#timer-seconds').text(time)
   }
 
